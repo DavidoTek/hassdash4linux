@@ -1,0 +1,59 @@
+# Flatpak manifest for hassdash4linux.
+#
+# Build and install locally (see AGENTS.md):
+#   build-aux/flatpak/gen-cargo-sources.py      # after every Cargo.lock change
+#   flatpak-builder --user --install --force-clean --install-deps-from=flathub \
+#     build-aux/flatpak/build build-aux/flatpak/net.davidotek.hassdash4linux.yml
+id: net.davidotek.hassdash4linux
+runtime: org.gnome.Platform
+runtime-version: '51'
+sdk: org.gnome.Sdk
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.rust-stable
+command: hassdash4linux
+finish-args:
+  # Home Assistant
+  - --share=network
+  # Windows
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  # Tray icon (StatusNotifierItem)
+  - --talk-name=org.kde.StatusNotifierWatcher
+  # Desktop notifications
+  - --talk-name=org.freedesktop.Notifications
+  # Reconnect after suspend
+  - --system-talk-name=org.freedesktop.login1
+  # No filesystem access: config lives in ~/.var/app/<id>/config,
+  # secrets go through the Secret portal.
+build-options:
+  append-path: /usr/lib/sdk/rust-stable/bin
+  env:
+    CARGO_HOME: /run/build/hassdash4linux/cargo
+    CARGO_NET_OFFLINE: 'true'
+modules:
+  - name: hassdash4linux
+    buildsystem: simple
+    build-commands:
+      - cargo build --release --locked --offline
+      - install -Dm755 target/release/hassdash4linux -t /app/bin
+      - install -Dm755 target/release/hassdash4linux-ui -t /app/bin
+      - install -Dm644 data/net.davidotek.hassdash4linux.desktop -t /app/share/applications
+      - install -Dm644 data/net.davidotek.hassdash4linux.metainfo.xml -t /app/share/metainfo
+      - install -Dm644 data/icons/scalable/net.davidotek.hassdash4linux.svg -t /app/share/icons/hicolor/scalable/apps
+      - install -Dm644 data/icons/symbolic/net.davidotek.hassdash4linux-symbolic.svg -t /app/share/icons/hicolor/symbolic/apps
+      - for s in 16 22 24 32 48 64 128 256 512; do install -Dm644 data/icons/hicolor/${s}x${s}/apps/net.davidotek.hassdash4linux.png -t /app/share/icons/hicolor/${s}x${s}/apps; done
+    sources:
+      - type: dir
+        path: ../..
+        skip:
+          - .git
+          - target
+          - result
+          - result-appimage
+          - build-aux/flatpak/build
+          - build-aux/flatpak/repo
+          - .flatpak-builder
+          - testing
+      - cargo-sources.json

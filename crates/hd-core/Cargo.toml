@@ -1,0 +1,26 @@
+[package]
+name = "hd-core"
+description = "hassdash4linux: configuration, entries, secrets, IPC and platform helpers"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+build = "build.rs"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+toml.workspace = true
+url.workspace = true
+zbus.workspace = true
+oo7.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+ring.workspace = true
+base64.workspace = true
+zeroize.workspace = true
+futures-util.workspace = true
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["rt", "macros"] }

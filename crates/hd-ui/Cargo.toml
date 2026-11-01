@@ -1,0 +1,25 @@
+[package]
+name = "hd-ui"
+description = "hassdash4linux settings and entity windows (GTK4/libadwaita)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "hassdash4linux-ui"
+path = "src/main.rs"
+
+[dependencies]
+hd-core.workspace = true
+hd-ha.workspace = true
+gtk.workspace = true
+adw.workspace = true
+tokio = { workspace = true, features = ["rt-multi-thread"] }
+serde_json.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+url.workspace = true
+async-channel = "2"
+zeroize.workspace = true

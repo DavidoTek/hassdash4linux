@@ -1,0 +1,9 @@
+# Throwaway Home Assistant configuration for testing hassdash4linux.
+# See AGENTS.md ("Live test"). Do not use for anything real.
+default_config:
+demo:
+logger:
+  default: warning
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

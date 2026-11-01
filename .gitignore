@@ -1,0 +1,8 @@
+/target
+/result
+/result-*
+/.flatpak-builder
+/build-aux/flatpak/build
+/build-aux/flatpak/repo
+*.AppImage
+/build-aux/flatpak/.flatpak-builder

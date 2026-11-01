@@ -1,0 +1,26 @@
+[package]
+name = "hd-daemon"
+description = "hassdash4linux tray daemon"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[[bin]]
+name = "hassdash4linux"
+path = "src/main.rs"
+
+[dependencies]
+hd-core.workspace = true
+hd-ha.workspace = true
+tokio.workspace = true
+zbus.workspace = true
+ksni.workspace = true
+serde_json.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+png.workspace = true
+url.workspace = true
+futures-util.workspace = true
+zeroize.workspace = true

@@ -1,0 +1,532 @@
+# German translation of hassdash4linux.
+msgid ""
+msgstr ""
+"Project-Id-Version: hassdash4linux\n"
+"Language: de\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "About hassdash4linux"
+msgstr "Info zu hassdash4linux"
+
+msgid "Add automation"
+msgstr "Automatisierung hinzufügen"
+
+msgid "Add automations, scenes, lights or sensors below."
+msgstr "Fügen Sie unten Automatisierungen, Szenen, Lichter oder Sensoren hinzu."
+
+msgid "Add light or outlet"
+msgstr "Licht oder Steckdose hinzufügen"
+
+msgid "Add scene"
+msgstr "Szene hinzufügen"
+
+msgid "Add script or button"
+msgstr "Skript oder Taste hinzufügen"
+
+msgid "Add sensor value"
+msgstr "Sensorwert hinzufügen"
+
+msgid "Add to the tray menu"
+msgstr "Zum Tray-Menü hinzufügen"
+
+msgid "Added “{name}” to the tray menu."
+msgstr "„{name}“ wurde zum Tray-Menü hinzugefügt."
+
+msgid "Already in the tray menu"
+msgstr "Bereits im Tray-Menü"
+
+msgid "Also remove the tray menu entries"
+msgstr "Auch die Einträge des Tray-Menüs entfernen"
+
+msgid "Alternative: access token"
+msgstr "Alternative: Zugriffstoken"
+
+msgid "Automation"
+msgstr "Automatisierung"
+
+msgid "Away"
+msgstr "Abwesend"
+
+msgid "Blue"
+msgstr "Blau"
+
+msgid "Brightness"
+msgstr "Helligkeit"
+
+msgid "Browser login"
+msgstr "Anmeldung im Browser"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Cancelled."
+msgstr "Abgebrochen."
+
+msgid "Cannot read the login data from the keyring."
+msgstr "Die Anmeldedaten können nicht aus dem Schlüsselbund gelesen werden."
+
+msgid "Clear"
+msgstr "Frei"
+
+msgid "Close hassdash4linux"
+msgstr "hassdash4linux beenden"
+
+msgid "Closed"
+msgstr "Geschlossen"
+
+msgid "Color"
+msgstr "Farbe"
+
+msgid "Color temperature"
+msgstr "Farbtemperatur"
+
+msgid "Companion device"
+msgstr "Companion-Gerät"
+
+msgid "Connect"
+msgstr "Verbinden"
+
+msgid "Connect to Home Assistant"
+msgstr "Mit Home Assistant verbinden"
+
+msgid "Connected"
+msgstr "Verbunden"
+
+msgid "Connected to Home Assistant"
+msgstr "Mit Home Assistant verbunden"
+
+msgid "Connected to Home Assistant."
+msgstr "Mit Home Assistant verbunden."
+
+msgid "Connected · version {version}"
+msgstr "Verbunden · Version {version}"
+
+msgid "Connected, but the device could not be registered for notifications: {error}"
+msgstr "Verbunden, aber das Gerät konnte nicht für Benachrichtigungen registriert werden: {error}"
+
+msgid "Connecting to Home Assistant…"
+msgstr "Verbindung zu Home Assistant wird hergestellt …"
+
+msgid "Connecting…"
+msgstr "Verbinden …"
+
+msgid "Connection"
+msgstr "Verbindung"
+
+msgid "Connection lost. Reconnecting…"
+msgstr "Verbindung unterbrochen. Neuer Versuch …"
+
+msgid "Could not connect"
+msgstr "Verbindung fehlgeschlagen"
+
+msgid "Could not connect to the server: {message}"
+msgstr "Verbindung zum Server fehlgeschlagen: {message}"
+
+msgid "Could not load the list"
+msgstr "Die Liste konnte nicht geladen werden"
+
+msgid "Could not run {name}"
+msgstr "{name} konnte nicht ausgeführt werden"
+
+msgid "Create a long-lived access token in Home Assistant under Profile → Security."
+msgstr "Erstellen Sie in Home Assistant unter Profil → Sicherheit ein langlebiges Zugriffstoken."
+
+msgid "Cyan"
+msgstr "Cyan"
+
+msgid "Detected"
+msgstr "Erkannt"
+
+msgid "Device name in Home Assistant"
+msgstr "Gerätename in Home Assistant"
+
+msgid "disabled"
+msgstr "deaktiviert"
+
+msgid "Disconnect"
+msgstr "Trennen"
+
+msgid "Disconnect from Home Assistant?"
+msgstr "Von Home Assistant trennen?"
+
+msgid "Disconnect from Home Assistant…"
+msgstr "Von Home Assistant trennen …"
+
+msgid "Disconnected"
+msgstr "Getrennt"
+
+msgid "Disconnected from Home Assistant."
+msgstr "Von Home Assistant getrennt."
+
+msgid "Dismiss"
+msgstr "Ausblenden"
+
+msgid "Done."
+msgstr "Erledigt."
+
+msgid "Dry"
+msgstr "Trocken"
+
+msgid "Edit entry"
+msgstr "Eintrag bearbeiten"
+
+msgid "Enter the address of your Home Assistant server, then log in with your browser."
+msgstr "Geben Sie die Adresse Ihres Home-Assistant-Servers ein und melden Sie sich dann im Browser an."
+
+msgid "Entry removed"
+msgstr "Eintrag entfernt"
+
+msgid "General"
+msgstr "Allgemein"
+
+msgid "Green"
+msgstr "Grün"
+
+msgid "hassdash4linux logs out and deletes the login data from the keyring."
+msgstr "hassdash4linux meldet sich ab und löscht die Anmeldedaten aus dem Schlüsselbund."
+
+msgid "Home"
+msgstr "Zuhause"
+
+msgid "Home Assistant in your system tray."
+msgstr "Home Assistant in Ihrem System-Tray."
+
+msgid "Home Assistant is not set up yet. Finish the onboarding in your browser first."
+msgstr "Home Assistant ist noch nicht eingerichtet. Schließen Sie zuerst die Einrichtung im Browser ab."
+
+msgid "Home Assistant rejected the login: {message}"
+msgstr "Home Assistant hat die Anmeldung abgelehnt: {message}"
+
+msgid "Home Assistant reported an error: {message} ({code})"
+msgstr "Home Assistant meldet einen Fehler: {message} ({code})"
+
+msgid "Home Assistant sends notifications to this computer through the companion device."
+msgstr "Home Assistant sendet Benachrichtigungen über das Companion-Gerät an diesen Computer."
+
+msgid "Label (empty: use the name from Home Assistant)"
+msgstr "Bezeichnung (leer: Name aus Home Assistant)"
+
+msgid "Last changed"
+msgstr "Zuletzt geändert"
+
+msgid "Light"
+msgstr "Licht"
+
+msgid "Light or outlet"
+msgstr "Licht oder Steckdose"
+
+msgid "Loading…"
+msgstr "Wird geladen …"
+
+msgid "Locked"
+msgstr "Verriegelt"
+
+msgid "Log in again"
+msgstr "Erneut anmelden"
+
+msgid "Log in with browser"
+msgstr "Im Browser anmelden"
+
+msgid "Login"
+msgstr "Anmeldung"
+
+msgid "Login successful. You can close this tab and return to hassdash4linux."
+msgstr "Anmeldung erfolgreich. Sie können diesen Tab schließen und zu hassdash4linux zurückkehren."
+
+msgid "Long-lived access token"
+msgstr "Langlebiges Zugriffstoken"
+
+msgid "Low"
+msgstr "Niedrig"
+
+msgid "Main menu"
+msgstr "Hauptmenü"
+
+msgid "Managed by your Nix configuration (programs.hassdash4linux.autostart)"
+msgstr "Wird von Ihrer Nix-Konfiguration verwaltet (programs.hassdash4linux.autostart)"
+
+msgid "Move down"
+msgstr "Nach unten"
+
+msgid "Move up"
+msgstr "Nach oben"
+
+msgid "No entries yet"
+msgstr "Noch keine Einträge"
+
+msgid "No entries yet. Add some in Settings."
+msgstr "Noch keine Einträge. Fügen Sie welche in den Einstellungen hinzu."
+
+msgid "No system tray found. On GNOME, install and enable the “AppIndicator and KStatusNotifierItem Support” extension. The icon appears as soon as a tray is available."
+msgstr "Kein System-Tray gefunden. Installieren und aktivieren Sie unter GNOME die Erweiterung „AppIndicator and KStatusNotifierItem Support“. Das Symbol erscheint, sobald ein Tray verfügbar ist."
+
+msgid "Normal"
+msgstr "Normal"
+
+msgid "Not connected to Home Assistant."
+msgstr "Nicht mit Home Assistant verbunden."
+
+msgid "Not connected to Home Assistant. Open Settings to connect."
+msgstr "Nicht mit Home Assistant verbunden. Öffnen Sie die Einstellungen, um eine Verbindung herzustellen."
+
+msgid "Not registered"
+msgstr "Nicht registriert"
+
+msgid "Not running"
+msgstr "Läuft nicht"
+
+msgid "Nothing found"
+msgstr "Nichts gefunden"
+
+msgid "Notifications"
+msgstr "Benachrichtigungen"
+
+msgid "Notify when an action fails"
+msgstr "Benachrichtigen, wenn eine Aktion fehlschlägt"
+
+msgid "Off"
+msgstr "Aus"
+
+msgid "On"
+msgstr "An"
+
+msgid "Only http:// and https:// addresses are supported."
+msgstr "Nur http://- und https://-Adressen werden unterstützt."
+
+msgid "Open"
+msgstr "Öffnen"
+
+msgid "Open controls"
+msgstr "Steuerung öffnen"
+
+msgid "Orange"
+msgstr "Orange"
+
+msgid "Paste a long-lived access token first."
+msgstr "Fügen Sie zuerst ein langlebiges Zugriffstoken ein."
+
+msgid "Pink"
+msgstr "Pink"
+
+msgid "Plugged in"
+msgstr "Eingesteckt"
+
+msgid "Power"
+msgstr "Ein/Aus"
+
+msgid "Preferences"
+msgstr "Einstellungen"
+
+msgid "Purple"
+msgstr "Lila"
+
+msgid "Receive notifications"
+msgstr "Benachrichtigungen empfangen"
+
+msgid "Reconnect"
+msgstr "Neu verbinden"
+
+msgid "Red"
+msgstr "Rot"
+
+msgid "Register"
+msgstr "Registrieren"
+
+msgid "Register again"
+msgstr "Erneut registrieren"
+
+msgid "Registered as a companion device."
+msgstr "Als Companion-Gerät registriert."
+
+msgid "Registered · send notifications with {service}"
+msgstr "Registriert · Benachrichtigungen senden mit {service}"
+
+msgid "Registers this computer as a companion device"
+msgstr "Registriert diesen Computer als Companion-Gerät"
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Remove the device “{device}” in Home Assistant under Settings → Devices & services → Mobile App. hassdash4linux cannot do this without administrator rights."
+msgstr "Entfernen Sie das Gerät „{device}“ in Home Assistant unter Einstellungen → Geräte & Dienste → Mobile App. hassdash4linux kann das ohne Administratorrechte nicht selbst tun."
+
+msgid "Run now"
+msgstr "Jetzt ausführen"
+
+msgid "Run the actions even if the automation's conditions are not met"
+msgstr "Aktionen auch ausführen, wenn die Bedingungen der Automatisierung nicht erfüllt sind"
+
+msgid "Running"
+msgstr "Läuft"
+
+msgid "Save"
+msgstr "Speichern"
+
+msgid "Scene"
+msgstr "Szene"
+
+msgid "Script or button"
+msgstr "Skript oder Taste"
+
+msgid "Search by name, area or entity ID"
+msgstr "Nach Name, Bereich oder Entitäts-ID suchen"
+
+msgid "Sensor value"
+msgstr "Sensorwert"
+
+msgid "Separator"
+msgstr "Trennlinie"
+
+msgid "Server"
+msgstr "Server"
+
+msgid "Server address, e.g. homeassistant.local:8123"
+msgstr "Serveradresse, z. B. homeassistant.local:8123"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Show notifications from Home Assistant"
+msgstr "Benachrichtigungen von Home Assistant anzeigen"
+
+msgid "Show the Home Assistant tray icon after login"
+msgstr "Das Home-Assistant-Tray-Symbol nach der Anmeldung anzeigen"
+
+msgid "Show the tray icon automatically after you log in"
+msgstr "Das Tray-Symbol nach der Anmeldung automatisch anzeigen"
+
+msgid "Skip conditions"
+msgstr "Bedingungen überspringen"
+
+msgid "Start on login"
+msgstr "Bei Anmeldung starten"
+
+msgid "Start over"
+msgstr "Neu beginnen"
+
+msgid "Switch"
+msgstr "Schalter"
+
+msgid "The address must not contain a user name, password, query or fragment."
+msgstr "Die Adresse darf keinen Benutzernamen, kein Passwort, keine Abfrage und kein Fragment enthalten."
+
+msgid "The certificate was not trusted."
+msgstr "Dem Zertifikat wurde nicht vertraut."
+
+msgid "The configuration file is invalid"
+msgstr "Die Konfigurationsdatei ist ungültig"
+
+msgid "The configuration file is invalid. Open Settings to fix it."
+msgstr "Die Konfigurationsdatei ist ungültig. Öffnen Sie die Einstellungen, um das zu beheben."
+
+msgid "The connection to Home Assistant was closed."
+msgstr "Die Verbindung zu Home Assistant wurde getrennt."
+
+msgid "The login data is missing from the keyring."
+msgstr "Die Anmeldedaten fehlen im Schlüsselbund."
+
+msgid "The login is no longer valid. Open Settings to log in again."
+msgstr "Die Anmeldung ist nicht mehr gültig. Öffnen Sie die Einstellungen, um sich erneut anzumelden."
+
+msgid "The login was cancelled."
+msgstr "Die Anmeldung wurde abgebrochen."
+
+msgid "The login was cancelled. You can close this tab."
+msgstr "Die Anmeldung wurde abgebrochen. Sie können diesen Tab schließen."
+
+msgid "The mobile_app integration is not enabled in Home Assistant."
+msgstr "Die Integration mobile_app ist in Home Assistant nicht aktiviert."
+
+msgid "The request to run in the background was denied."
+msgstr "Die Anfrage, im Hintergrund zu laufen, wurde abgelehnt."
+
+msgid "The server did not respond in time."
+msgstr "Der Server hat nicht rechtzeitig geantwortet."
+
+msgid ""
+"The server's certificate is not signed by a trusted authority. This is normal for self-signed certificates, but it can also mean that someone is intercepting the connection.\n"
+"\n"
+"Only continue if this fingerprint matches the certificate of your server:\n"
+"\n"
+"{fingerprint}"
+msgstr ""
+"Das Zertifikat des Servers ist nicht von einer vertrauenswürdigen Stelle signiert. Bei selbst signierten Zertifikaten ist das normal, es kann aber auch bedeuten, dass jemand die Verbindung abfängt.\n"
+"\n"
+"Fahren Sie nur fort, wenn dieser Fingerabdruck zum Zertifikat Ihres Servers passt:\n"
+"\n"
+"{fingerprint}"
+
+msgid "The server's certificate is not trusted ({message})."
+msgstr "Dem Zertifikat des Servers wird nicht vertraut ({message})."
+
+msgid "These entries appear in this order in the tray menu."
+msgstr "Diese Einträge erscheinen in dieser Reihenfolge im Tray-Menü."
+
+msgid "This connection is not encrypted. Anyone on your network could read your login data. Use https:// if your server supports it."
+msgstr "Diese Verbindung ist nicht verschlüsselt. Jeder in Ihrem Netzwerk könnte Ihre Anmeldedaten mitlesen. Verwenden Sie https://, wenn Ihr Server das unterstützt."
+
+msgid "This device is unavailable."
+msgstr "Dieses Gerät ist nicht verfügbar."
+
+msgid "This device was removed from Home Assistant."
+msgstr "Dieses Gerät wurde aus Home Assistant entfernt."
+
+msgid "This device was removed from Home Assistant. Open Settings to register it again."
+msgstr "Dieses Gerät wurde aus Home Assistant entfernt. Öffnen Sie die Einstellungen, um es erneut zu registrieren."
+
+msgid "This does not look like a Home Assistant server: {message}"
+msgstr "Das scheint kein Home-Assistant-Server zu sein: {message}"
+
+msgid "This is not a valid address."
+msgstr "Das ist keine gültige Adresse."
+
+msgid "Tip: for the best security, log in with a dedicated Home Assistant user without administrator rights. hassdash4linux does not need them."
+msgstr "Tipp: Melden Sie sich für die beste Sicherheit mit einem eigenen Home-Assistant-Benutzer ohne Administratorrechte an. hassdash4linux benötigt sie nicht."
+
+msgid "Tray menu"
+msgstr "Tray-Menü"
+
+msgid "Trust this certificate"
+msgstr "Diesem Zertifikat vertrauen"
+
+msgid "Trusted certificate"
+msgstr "Vertrautes Zertifikat"
+
+msgid "Unavailable"
+msgstr "Nicht verfügbar"
+
+msgid "Undo"
+msgstr "Rückgängig"
+
+msgid "Unencrypted http:// is only allowed for addresses in your local network. Use https:// for this server."
+msgstr "Unverschlüsseltes http:// ist nur für Adressen in Ihrem lokalen Netzwerk erlaubt. Verwenden Sie für diesen Server https://."
+
+msgid "Unexpected answer from the server (HTTP {status}): {message}"
+msgstr "Unerwartete Antwort vom Server (HTTP {status}): {message}"
+
+msgid "Unlocked"
+msgstr "Entriegelt"
+
+msgid "Unplugged"
+msgstr "Ausgesteckt"
+
+msgid "Untrusted certificate"
+msgstr "Nicht vertrauenswürdiges Zertifikat"
+
+msgid "Waiting for the login in your browser…"
+msgstr "Warten auf die Anmeldung im Browser …"
+
+msgid "Wet"
+msgstr "Nass"
+
+msgid "Yellow"
+msgstr "Gelb"
+
+msgid "{count} more notifications from Home Assistant were not shown."
+msgstr "{count} weitere Benachrichtigungen von Home Assistant wurden nicht angezeigt."
+
+msgid "“Start over” renames the file to config.toml.invalid and starts with an empty configuration."
+msgstr "„Neu beginnen“ benennt die Datei in config.toml.invalid um und beginnt mit einer leeren Konfiguration."

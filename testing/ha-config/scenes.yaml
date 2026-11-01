@@ -1,0 +1,6 @@
+- id: hd_test_scene
+  name: Movie night
+  entities:
+    light.bed_light:
+      state: "on"
+      brightness: 50

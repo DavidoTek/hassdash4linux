@@ -1,0 +1,6 @@
+hd_test_script:
+  alias: Test script
+  sequence:
+    - action: persistent_notification.create
+      data:
+        message: Test script ran

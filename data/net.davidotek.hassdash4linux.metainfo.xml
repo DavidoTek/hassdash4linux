@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>net.davidotek.hassdash4linux</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>hassdash4linux</name>
+  <summary>Home Assistant in your system tray</summary>
+  <developer id="net.davidotek">
+    <name>davidotek</name>
+  </developer>
+  <description>
+    <p>
+      hassdash4linux puts your Home Assistant at your fingertips: a tray icon
+      whose menu holds the things you use most.
+    </p>
+    <ul>
+      <li>Run automations, scenes, scripts and buttons with one click</li>
+      <li>Control lights (brightness, color temperature, color) and outlets</li>
+      <li>See live sensor values, such as temperatures, right in the menu</li>
+      <li>Receive Home Assistant notifications on your desktop, including action buttons</li>
+    </ul>
+    <p>
+      It logs in through your browser, keeps its credentials in the system
+      keyring, and uses very little memory and CPU while running in the background.
+    </p>
+  </description>
+  <launchable type="desktop-id">net.davidotek.hassdash4linux.desktop</launchable>
+  <categories>
+    <category>Utility</category>
+  </categories>
+  <keywords>
+    <keyword>Home Assistant</keyword>
+    <keyword>Smart Home</keyword>
+    <keyword>Tray</keyword>
+  </keywords>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <content_rating type="oars-1.1"/>
+  <translation type="gettext">hassdash4linux</translation>
+  <releases>
+    <release version="0.1.0" date="2026-11-01">
+      <description>
+        <p>First release.</p>
+      </description>
+    </release>
+  </releases>
+</component>

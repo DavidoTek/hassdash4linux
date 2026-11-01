@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4B3F8F"/>
+      <stop offset="1" stop-color="#2B2357"/>
+    </linearGradient>
+    <linearGradient id="pill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFC94D"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+    <linearGradient id="knob" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#ECE8F7"/>
+    </linearGradient>
+  </defs>
+  <!-- base tile with a darker bottom edge for depth -->
+  <rect x="8" y="14" width="112" height="104" rx="26" fill="#1D173D"/>
+  <rect x="8" y="10" width="112" height="104" rx="26" fill="url(#tile)"/>
+  <!-- toggle switch -->
+  <rect x="24" y="28" width="80" height="40" rx="20" fill="#1D173D" opacity="0.35" transform="translate(0 3)"/>
+  <rect x="24" y="28" width="80" height="40" rx="20" fill="url(#pill)"/>
+  <circle cx="84" cy="48" r="15" fill="url(#knob)"/>
+  <circle cx="84" cy="48" r="5" fill="#F59E0B"/>
+  <!-- dashboard bars -->
+  <rect x="24" y="82" width="22" height="16" rx="6" fill="#8F84E0"/>
+  <rect x="53" y="82" width="22" height="16" rx="6" fill="#8F84E0" opacity="0.75"/>
+  <rect x="82" y="82" width="22" height="16" rx="6" fill="#FFC94D"/>
+</svg>

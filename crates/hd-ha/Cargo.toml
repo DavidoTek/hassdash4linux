@@ -1,0 +1,29 @@
+[package]
+name = "hd-ha"
+description = "hassdash4linux: Home Assistant client (auth, WebSocket, REST, mobile_app)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+hd-core.workspace = true
+tokio.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+url.workspace = true
+tracing.workspace = true
+base64.workspace = true
+ring.workspace = true
+zeroize.workspace = true
+futures-util.workspace = true
+rustls.workspace = true
+tokio-rustls.workspace = true
+rustls-native-certs.workspace = true
+tokio-tungstenite.workspace = true
+reqwest.workspace = true
+crypto_secretbox.workspace = true
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["rt", "rt-multi-thread", "macros", "io-util", "net"] }

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=hassdash4linux
+GenericName=Home Assistant Tray
+Comment=Home Assistant in your system tray
+Exec=hassdash4linux
+Icon=net.davidotek.hassdash4linux
+Terminal=false
+StartupNotify=false
+Categories=Utility;
+Keywords=Home Assistant;Smart Home;Automation;Tray;Lights;
+X-GNOME-UsesNotifications=true

@@ -1,0 +1,13 @@
+- id: hd_test_automation
+  alias: Test automation
+  triggers:
+    - trigger: event
+      event_type: hd_test_event
+  conditions:
+    - condition: state
+      entity_id: sun.sun
+      state: never
+  actions:
+    - action: persistent_notification.create
+      data:
+        message: Test automation ran
