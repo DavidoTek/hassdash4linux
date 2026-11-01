@@ -384,11 +384,19 @@ fn subscribe(
                     return;
                 }
             };
-            // Ends when the window closes (receiver dropped) or the session ends;
-            // dropping the subscription unsubscribes.
-            while let Some(ev) = sub.next().await {
-                if tx.send(ev).await.is_err() {
-                    break;
+            // Ends when the window closes (the channel is closed) or the session
+            // ends; dropping the subscription unsubscribes. Waiting on
+            // `tx.closed()` too matters for idle entities, which may not send
+            // another event for a long time.
+            loop {
+                tokio::select! {
+                    ev = sub.next() => {
+                        let Some(ev) = ev else { break };
+                        if tx.send(ev).await.is_err() {
+                            break;
+                        }
+                    }
+                    _ = tx.closed() => break,
                 }
             }
         });

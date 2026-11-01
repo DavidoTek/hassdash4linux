@@ -184,9 +184,8 @@ pub fn page(ui: &Rc<Ui>) -> adw::NavigationPage {
         let insecure = hd_core::server::normalize(&e.text()).is_ok_and(|u| u.scheme() == "http");
         w2.http_warning.set_visible(insecure);
     });
-    w.http_warning.set_visible(
-        hd_core::server::normalize(&url.text()).is_ok_and(|u| u.scheme() == "http"),
-    );
+    w.http_warning
+        .set_visible(hd_core::server::normalize(&url.text()).is_ok_and(|u| u.scheme() == "http"));
     let w2 = w.clone();
     login.connect_clicked(move |_| start(&w2, Method::Browser, None));
     let w2 = w.clone();
@@ -361,16 +360,24 @@ async fn flow(
         .map(|s| hd_core::truncate_chars(s, 100))
         .filter(|s| !s.is_empty());
 
-    let url = base.as_str().trim_end_matches('/').to_owned();
+    let url = hd_core::server::canonical(&base);
     let store = SecretStore::open().await?;
-    store.delete_all(&url).await?;
-    match connector.credentials() {
+    // Store the new login first (replacing an older one), then remove the rest,
+    // so a failing keyring never leaves this server without a login.
+    let kept = match connector.credentials() {
         Credentials::OAuth { refresh_token, .. } => {
             store
                 .set(&url, SecretKind::RefreshToken, refresh_token)
-                .await?
+                .await?;
+            SecretKind::RefreshToken
         }
-        Credentials::LongLived(t) => store.set(&url, SecretKind::LongLivedToken, t).await?,
+        Credentials::LongLived(t) => {
+            store.set(&url, SecretKind::LongLivedToken, t).await?;
+            SecretKind::LongLivedToken
+        }
+    };
+    for kind in SecretKind::ALL.into_iter().filter(|k| *k != kept) {
+        store.delete(&url, kind).await?;
     }
 
     let mut companion = Companion {
@@ -407,6 +414,13 @@ async fn flow(
 }
 
 fn finish(ui: &Rc<Ui>, w: &Widgets, out: Outcome) {
+    let previous = ui
+        .config
+        .borrow()
+        .connection
+        .as_ref()
+        .map(|c| c.url.clone());
+    let new_url = out.connection.url.clone();
     let res = ui.update_config(|c| {
         c.connection = Some(out.connection);
         c.companion = Some(out.companion);
@@ -414,6 +428,19 @@ fn finish(ui: &Rc<Ui>, w: &Widgets, out: Outcome) {
     if let Err(e) = res {
         set_status(w, false, &e);
         return;
+    }
+    // Connected to a different server: forget the old server's secrets.
+    if let Some(old) = previous.filter(|u| *u != new_url) {
+        glib::spawn_future_local(async move {
+            let res =
+                crate::rt::on_tokio(
+                    async move { SecretStore::open().await?.delete_all(&old).await },
+                )
+                .await;
+            if let Err(e) = res {
+                tracing::warn!("could not remove the previous server's secrets: {e}");
+            }
+        });
     }
     ui.set_link(Some(HaLink::new(out.connector, Some(out.session))));
     crate::window::show_root(ui);

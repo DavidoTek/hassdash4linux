@@ -47,6 +47,16 @@ pub fn normalize(input: &str) -> Result<Url, UrlError> {
     let with_scheme = if input.contains("://") {
         input.to_owned()
     } else {
+        // A mistyped scheme (`https:/host`, `https//host`) must not silently
+        // become plain HTTP to a host named `https`.
+        let lower = input.to_ascii_lowercase();
+        if ["http", "https"].iter().any(|s| {
+            lower
+                .strip_prefix(s)
+                .is_some_and(|rest| rest.starts_with([':', '/']))
+        }) {
+            return Err(UrlError::Invalid);
+        }
         // Decide on a default scheme based on the host.
         let probe = Url::parse(&format!("http://{input}")).map_err(|_| UrlError::Invalid)?;
         if is_local_host(&probe) {
@@ -87,6 +97,12 @@ pub fn validate(url: &str) -> Result<Url, UrlError> {
         return Err(UrlError::Invalid);
     }
     Ok(normalized)
+}
+
+/// The canonical string form of a normalised URL, as stored in the
+/// configuration and used as the keyring's `server` attribute.
+pub fn canonical(url: &Url) -> String {
+    url.as_str().trim_end_matches('/').to_owned()
 }
 
 /// Whether the URL's host is on the local machine or the local network:
@@ -179,6 +195,26 @@ mod tests {
             normalize("https://ha.example.org/sub/").unwrap().as_str(),
             "https://ha.example.org/sub"
         );
+    }
+
+    #[test]
+    fn mistyped_scheme_is_rejected() {
+        for input in [
+            "https:/ha.example.org",
+            "https//ha.example.org",
+            "HTTP:ha.local",
+        ] {
+            assert_eq!(normalize(input), Err(UrlError::Invalid), "{input}");
+        }
+        assert!(normalize("httpserver.local:8123").is_ok());
+    }
+
+    #[test]
+    fn canonical_form() {
+        let u = normalize("https://HA.example.org/").unwrap();
+        assert_eq!(canonical(&u), "https://ha.example.org");
+        let u = normalize("https://ha.example.org/sub/").unwrap();
+        assert_eq!(canonical(&u), "https://ha.example.org/sub");
     }
 
     #[test]

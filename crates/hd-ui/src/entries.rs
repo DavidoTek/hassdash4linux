@@ -183,7 +183,8 @@ pub fn connect(ui: &Rc<Ui>) {
             Err(e) => {
                 page.status_row.set_subtitle(&e.to_string());
                 page.retry.set_visible(true);
-                page.relogin.set_visible(matches!(e, hd_ha::HaError::Auth(_)));
+                page.relogin
+                    .set_visible(matches!(e, hd_ha::HaError::Auth(_)));
             }
         }
     });

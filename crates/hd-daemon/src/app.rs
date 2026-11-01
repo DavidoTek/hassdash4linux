@@ -12,7 +12,7 @@ use tokio::task::JoinHandle;
 use zeroize::Zeroizing;
 
 use hd_core::config::Config;
-use hd_core::entry::{EntryKind, action_service};
+use hd_core::entry::{Entry, EntryKind, action_service};
 use hd_core::i18n::{tr, trf};
 use hd_core::secrets::SecretStore;
 use hd_ha::mobile_app::Registration;
@@ -32,8 +32,12 @@ pub enum Control {
     Reload,
     ShowSettings,
     Quit,
-    /// A user entry in the tray menu was clicked (index into `config.entries`).
-    Activate(usize),
+    /// A user entry in the tray menu was clicked: its index into
+    /// `config.entries` and the entry the menu showed.
+    Activate {
+        index: usize,
+        entry: Entry,
+    },
     NotificationAction {
         id: u32,
         action: String,
@@ -309,15 +313,24 @@ impl App {
     /// Send the current app version and OS to Home Assistant. A 410 answer
     /// means the device was deleted there.
     fn refresh_registration(&self) {
-        let (Some(reg), Some(connector), Some(comp)) =
-            (self.registration.clone(), self.connector.clone(), self.config.companion.clone())
-        else {
+        let (Some(reg), Some(connector), Some(comp)) = (
+            self.registration.clone(),
+            self.connector.clone(),
+            self.config.companion.clone(),
+        ) else {
             return;
         };
         let tx = self.tx.clone();
         tokio::spawn(async move {
             let info = hd_ha::mobile_app::DeviceInfo::collect(&comp.device_id, &comp.device_name);
-            match hd_ha::mobile_app::update_registration(&connector.http, &connector.base, &reg, &info).await {
+            match hd_ha::mobile_app::update_registration(
+                &connector.http,
+                &connector.base,
+                &reg,
+                &info,
+            )
+            .await
+            {
                 Ok(()) => tracing::debug!("companion registration updated"),
                 Err(HaError::Gone) => {
                     let _ = tx.send(Control::RegistrationGone);
@@ -335,7 +348,7 @@ impl App {
             }
             Control::ShowSettings => spawn_ui(&["--settings"]),
             Control::Quit => {}
-            Control::Activate(i) => self.activate(i),
+            Control::Activate { index, entry } => self.activate(index, &entry),
             Control::ActionFailed { name, error } => {
                 if self.config.preferences.notify_on_failure
                     && let Some(n) = &mut self.notifier
@@ -386,10 +399,16 @@ impl App {
             .unwrap_or_else(|| e.entity_id.clone())
     }
 
-    fn activate(&mut self, index: usize) {
+    fn activate(&mut self, index: usize, shown: &Entry) {
+        // The menu may be older than the config (after `ReloadConfig`); never
+        // run an entry other than the one the user clicked.
         let Some(entry) = self.config.entries.get(index).cloned() else {
             return;
         };
+        if entry != *shown {
+            tracing::info!("ignoring a click on an outdated tray menu");
+            return;
+        }
         match entry.kind {
             EntryKind::Action => {
                 let Some(call) = action_service(&entry) else {
@@ -559,6 +578,7 @@ impl App {
                     let unavailable = st.is_some_and(|s| s.state == "unavailable");
                     lines.push(MenuLine::Item {
                         index: i,
+                        entry: e.clone(),
                         label: self.display_name(i),
                         enabled: connected && !disabled_automation && !unavailable,
                     });
@@ -571,6 +591,7 @@ impl App {
                     };
                     lines.push(MenuLine::Item {
                         index: i,
+                        entry: e.clone(),
                         label,
                         enabled: connected,
                     });

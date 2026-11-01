@@ -42,6 +42,8 @@ fn parse_po(text: &str) -> Vec<(String, String)> {
         None,
         Id,
         Str,
+        /// `msgctxt`: starts an entry, so the following `msgid` belongs to it.
+        Ctxt,
         Other,
     }
     let mut out = Vec::new();
@@ -69,7 +71,7 @@ fn parse_po(text: &str) -> Vec<(String, String)> {
             fuzzy |= t.contains("fuzzy");
         } else if t.starts_with('#') {
         } else if let Some(rest) = t.strip_prefix("msgid ") {
-            if field != Field::None {
+            if field != Field::None && field != Field::Ctxt {
                 flush(&mut id, &mut st, &mut fuzzy, &mut skip);
             }
             id = quoted(rest).unwrap_or_default();
@@ -77,10 +79,13 @@ fn parse_po(text: &str) -> Vec<(String, String)> {
         } else if let Some(rest) = t.strip_prefix("msgstr ") {
             st = quoted(rest).unwrap_or_default();
             field = Field::Str;
-        } else if t.starts_with("msgid_plural")
-            || t.starts_with("msgstr[")
-            || t.starts_with("msgctxt")
-        {
+        } else if t.starts_with("msgctxt") {
+            if field != Field::None {
+                flush(&mut id, &mut st, &mut fuzzy, &mut skip);
+            }
+            skip = true;
+            field = Field::Ctxt;
+        } else if t.starts_with("msgid_plural") || t.starts_with("msgstr[") {
             skip = true;
             field = Field::Other;
         } else if t.starts_with('"') {

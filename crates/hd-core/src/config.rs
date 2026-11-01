@@ -156,7 +156,15 @@ impl Config {
 
     /// Parse and validate configuration text.
     pub fn parse(text: &str) -> Result<Self, ConfigError> {
-        let cfg: Config = toml::from_str(text).map_err(|e| ConfigError::Parse(e.to_string()))?;
+        let mut cfg: Config =
+            toml::from_str(text).map_err(|e| ConfigError::Parse(e.to_string()))?;
+        // Use the canonical URL everywhere, so that a hand-edited trailing slash
+        // or upper-case host still finds the secrets in the keyring.
+        if let Some(c) = &mut cfg.connection
+            && let Ok(u) = crate::server::validate(&c.url)
+        {
+            c.url = crate::server::canonical(&u);
+        }
         cfg.validate().map_err(ConfigError::Invalid)?;
         Ok(cfg)
     }
@@ -219,11 +227,22 @@ impl Config {
             .create(dir)?;
         let tmp = dir.join(format!(".config.toml.{}.tmp", std::process::id()));
         let result = (|| {
-            let mut f = std::fs::OpenOptions::new()
-                .write(true)
-                .create_new(true)
-                .mode(0o600)
-                .open(&tmp)?;
+            let create = || {
+                std::fs::OpenOptions::new()
+                    .write(true)
+                    .create_new(true)
+                    .mode(0o600)
+                    .open(&tmp)
+            };
+            let mut f = match create() {
+                // Left behind by an earlier process with the same pid that was
+                // killed before the rename; no live process can own it.
+                Err(e) if e.kind() == std::io::ErrorKind::AlreadyExists => {
+                    std::fs::remove_file(&tmp)?;
+                    create()?
+                }
+                r => r?,
+            };
             f.write_all(
                 b"# hassdash4linux configuration. Secrets are kept in the system keyring.\n",
             )?;
@@ -333,6 +352,27 @@ mod tests {
         assert_eq!(mode.mode() & 0o777, 0o600);
         assert_eq!(Config::load_from(&path).unwrap(), c);
         std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn stale_tmp_file_does_not_block_saving() {
+        let dir = std::env::temp_dir().join(format!("hd-core-test-{}", crate::rand::token(6)));
+        std::fs::create_dir_all(&dir).unwrap();
+        let tmp = dir.join(format!(".config.toml.{}.tmp", std::process::id()));
+        std::fs::write(&tmp, "stale").unwrap();
+        let path = dir.join("config.toml");
+        let c = sample();
+        c.save_to(&path).unwrap();
+        assert!(!tmp.exists());
+        assert_eq!(Config::load_from(&path).unwrap(), c);
+        std::fs::remove_dir_all(dir).unwrap();
+    }
+
+    #[test]
+    fn url_is_canonicalised_on_load() {
+        let text = "version = 1\n[connection]\nurl = \"https://HA.example.org/\"\nauth = \"long_lived_token\"\n";
+        let c = Config::parse(text).unwrap();
+        assert_eq!(c.connection.unwrap().url, "https://ha.example.org");
     }
 
     #[test]

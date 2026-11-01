@@ -51,8 +51,23 @@ enum Outgoing {
 }
 
 enum Pending {
-    Request(Option<Reply>),
+    /// A request and when it was sent.
+    Request(Option<Reply>, tokio::time::Instant),
     Subscribe(Reply, mpsc::Sender<Value>),
+}
+
+impl Pending {
+    /// Whether nobody waits for the answer any more: the caller gave up
+    /// (`REQUEST_TIMEOUT`) or a fire-and-forget request was never answered.
+    /// Subscriptions are not pruned here: a `Subscription` dropped after a
+    /// timeout sends `Unsubscribe`, which needs the entry to find the ID.
+    fn abandoned(&self, now: tokio::time::Instant) -> bool {
+        match self {
+            Pending::Request(Some(r), _) => r.is_closed(),
+            Pending::Request(None, sent) => now.duration_since(*sent) > 2 * REQUEST_TIMEOUT,
+            Pending::Subscribe(..) => false,
+        }
+    }
 }
 
 struct Inner {
@@ -365,10 +380,14 @@ async fn actor<S: Io + 'static>(
         tokio::select! {
             out = rx.recv() => {
                 let Some(out) = out else { break "all handles dropped" };
+                // Drop requests nobody waits for any more, so a server that
+                // stops answering cannot grow `pending` without bound.
+                let now = tokio::time::Instant::now();
+                pending.retain(|_, p| !p.abandoned(now));
                 let (mut msg, id) = match out {
                     Outgoing::Request { msg, reply } => {
                         let id = next_id;
-                        pending.insert(id, Pending::Request(reply));
+                        pending.insert(id, Pending::Request(reply, now));
                         (msg, id)
                     }
                     Outgoing::Subscribe { msg, reply, events, id_tx } => {
@@ -383,7 +402,7 @@ async fn actor<S: Io + 'static>(
                         }
                         pending.remove(&sub_id);
                         let id = next_id;
-                        pending.insert(id, Pending::Request(None));
+                        pending.insert(id, Pending::Request(None, now));
                         (json!({"type": "unsubscribe_events", "subscription": sub_id}), id)
                     }
                 };
@@ -434,10 +453,10 @@ async fn actor<S: Io + 'static>(
     let _ = ws.close(None).await;
     for (_, p) in pending.drain() {
         match p {
-            Pending::Request(Some(r)) | Pending::Subscribe(r, _) => {
+            Pending::Request(Some(r), _) | Pending::Subscribe(r, _) => {
                 let _ = r.send(Err(HaError::Closed));
             }
-            Pending::Request(None) => {}
+            Pending::Request(None, _) => {}
         }
     }
     subs.clear();
@@ -470,7 +489,7 @@ fn handle(
                 })
             };
             match pending.remove(&id) {
-                Some(Pending::Request(Some(r))) => {
+                Some(Pending::Request(Some(r), _)) => {
                     let _ = r.send(result);
                 }
                 Some(Pending::Subscribe(r, events)) => {

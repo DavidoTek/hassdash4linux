@@ -4,14 +4,17 @@ use tokio::sync::mpsc;
 
 use crate::app::Control;
 use crate::icons::{self, TrayIcon};
+use hd_core::entry::Entry;
 use hd_core::i18n::tr;
 
 /// One line of the user part of the menu.
 #[derive(Debug, Clone, PartialEq)]
 pub enum MenuLine {
-    /// Clickable entry; the index refers to `config.entries`.
+    /// Clickable entry; the index refers to `config.entries`, and `entry` is
+    /// the entry shown, so a click on an outdated menu can be detected.
     Item {
         index: usize,
+        entry: Entry,
         label: String,
         enabled: bool,
     },
@@ -94,16 +97,21 @@ impl ksni::Tray for Tray {
             match line {
                 MenuLine::Item {
                     index,
+                    entry,
                     label,
                     enabled,
                 } => {
                     let index = *index;
+                    let entry = entry.clone();
                     items.push(
                         StandardItem {
                             label: escape(label),
                             enabled: *enabled,
                             activate: Box::new(move |t: &mut Self| {
-                                let _ = t.tx.send(Control::Activate(index));
+                                let _ = t.tx.send(Control::Activate {
+                                    index,
+                                    entry: entry.clone(),
+                                });
                             }),
                             ..Default::default()
                         }
