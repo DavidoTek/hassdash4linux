@@ -1,7 +1,7 @@
 # AGENTS.md — working on hassdash4linux
 
 Guidance for coding agents and contributors. Read this before changing code.
-User-facing documentation is in `README.md`.
+User-facing documentation is in `README.md`. Repository: <https://github.com/DavidoTek/hassdash4linux>.
 
 ## What this is
 
@@ -39,8 +39,7 @@ Data flow:
 
 ## Commands
 
-The dev machine is Fedora Atomic. GTK headers come from Nix and flakes are not enabled globally, so prefix commands with
-`nix --extra-experimental-features 'nix-command flakes'`, or enable flakes.
+GTK and libadwaita headers come from the flake's dev shell (`nix develop`).
 
 ```sh
 nix develop                          # toolchain + GTK/libadwaita + cargo-deny/audit, librsvg, appstream …
@@ -149,7 +148,7 @@ Resources:
 - **zbus 6**: `deny.toml` ignores RUSTSEC-2026-0370/0371/0372 (zbus 5 helper crates merged into zbus 6). Upgrade once ksni and oo7 support zbus 6.
 - **Dependency versions**: some dependencies are a minor version behind on purpose (gtk4-rs 0.10, libadwaita-rs 0.8, reqwest 0.12, oo7 0.5). Upgrade deliberately and re-run the live test.
 - **No CI yet**: a workflow should run `nix flake check`, `cargo deny check` and the Flatpak build, with actions pinned by commit SHA.
-- **Flathub metadata**: the metainfo needs a homepage URL and screenshots before submission.
-- **Untested**: the AppImage and Flatpak have only been tested on x86_64 Fedora Atomic (GNOME). KDE Plasma still needs a manual check: left click should open the menu (`MENU_ON_ACTIVATE`).
+- **Flathub metadata**: the metainfo needs screenshots before submission.
+- **Untested**: the AppImage and Flatpak have only been tested on x86_64 with GNOME. KDE Plasma still needs a manual check: left click should open the menu (`MENU_ON_ACTIVATE`).
 - **Device name**: the companion device name can't be changed after registration from the UI. Changing it means disconnecting and reconnecting.
 - **Not implemented**: sending desktop sensors (battery, active app …) to Home Assistant, more entity domains (cover, climate, media player), and internal/external URL failover.

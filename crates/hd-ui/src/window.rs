@@ -196,6 +196,8 @@ fn show_about(ui: &Rc<Ui>) {
         .comments(tr("Home Assistant in your system tray."))
         .license_type(gtk::License::Gpl30)
         .developer_name("davidotek")
+        .website("https://github.com/DavidoTek/hassdash4linux")
+        .issue_url("https://github.com/DavidoTek/hassdash4linux/issues")
         .build();
     about.present(parent(ui).as_ref());
 }

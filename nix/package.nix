@@ -64,6 +64,7 @@ rustPlatform.buildRustPackage {
       Run automations, scenes and scripts, control lights and outlets, see
       sensor values and receive Home Assistant notifications from a tray icon.
     '';
+    homepage = "https://github.com/DavidoTek/hassdash4linux";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "hassdash4linux";

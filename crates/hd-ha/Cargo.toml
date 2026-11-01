@@ -4,6 +4,8 @@ description = "hassdash4linux: Home Assistant client (auth, WebSocket, REST, mob
 version.workspace = true
 edition.workspace = true
 license.workspace = true
+repository.workspace = true
+homepage.workspace = true
 rust-version.workspace = true
 publish = false
 

@@ -32,7 +32,7 @@ If no tray is found, hassdash4linux opens its window and tells you so.
 
 ```nix
 {
-  inputs.hassdash4linux.url = "github:<owner>/hassdash4linux"; # or a path
+  inputs.hassdash4linux.url = "github:DavidoTek/hassdash4linux"; # or a path
   outputs = { nixpkgs, hassdash4linux, ... }: {
     nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
       modules = [

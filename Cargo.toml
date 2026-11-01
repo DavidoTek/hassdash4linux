@@ -6,6 +6,8 @@ members = ["crates/hd-core", "crates/hd-ha", "crates/hd-daemon", "crates/hd-ui"]
 version = "0.1.0"
 edition = "2024"
 license = "GPL-3.0-or-later"
+repository = "https://github.com/DavidoTek/hassdash4linux"
+homepage = "https://github.com/DavidoTek/hassdash4linux"
 rust-version = "1.88"
 
 [workspace.dependencies]

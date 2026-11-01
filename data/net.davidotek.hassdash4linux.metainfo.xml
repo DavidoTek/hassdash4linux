@@ -8,6 +8,9 @@
   <developer id="net.davidotek">
     <name>davidotek</name>
   </developer>
+  <url type="homepage">https://github.com/DavidoTek/hassdash4linux</url>
+  <url type="bugtracker">https://github.com/DavidoTek/hassdash4linux/issues</url>
+  <url type="vcs-browser">https://github.com/DavidoTek/hassdash4linux</url>
   <description>
     <p>
       hassdash4linux puts your Home Assistant at your fingertips: a tray icon
