@@ -44,7 +44,11 @@ pub enum Control {
     },
     NotificationClosed(u32),
     Resumed,
-    WatcherOffline,
+    /// The StatusNotifierWatcher is unavailable. `vanished` is true when it
+    /// was present before and went away (rather than missing at startup).
+    WatcherOffline {
+        vanished: bool,
+    },
     WatcherOnline,
     ActionFailed {
         name: String,
@@ -96,6 +100,9 @@ struct App {
     companion_note: Option<&'static str>,
     tray_offline_since: Option<Instant>,
     tray_hint_shown: bool,
+    /// A tray host has been available at some point. Then a missing host is
+    /// transient (screen lock, shell restart) and not worth the hint.
+    tray_host_seen: bool,
     last_menu: Option<(TrayIcon, Option<String>, Vec<MenuLine>)>,
 }
 
@@ -175,6 +182,7 @@ pub async fn run() -> Result<(), Box<dyn std::error::Error>> {
         companion_note: None,
         tray_offline_since: None,
         tray_hint_shown: false,
+        tray_host_seen: false,
         last_menu: None,
     };
     app.load().await;
@@ -201,7 +209,7 @@ impl App {
         loop {
             let hint_deadline = self
                 .tray_offline_since
-                .filter(|_| !self.tray_hint_shown)
+                .filter(|_| !self.tray_hint_shown && !self.tray_host_seen)
                 .map(|t| tokio::time::Instant::from_std(t + TRAY_HOST_GRACE));
             tokio::select! {
                 c = self.rx.recv() => match c {
@@ -374,10 +382,14 @@ impl App {
                     self.refresh_tray().await;
                 }
             }
-            Control::WatcherOffline => {
+            Control::WatcherOffline { vanished } => {
+                self.tray_host_seen |= vanished;
                 self.tray_offline_since.get_or_insert_with(Instant::now);
             }
-            Control::WatcherOnline => self.tray_offline_since = None,
+            Control::WatcherOnline => {
+                self.tray_host_seen = true;
+                self.tray_offline_since = None;
+            }
             Control::RegistrationGone => {
                 if self.registration.take().is_some() {
                     tracing::warn!("the companion registration was deleted in Home Assistant");

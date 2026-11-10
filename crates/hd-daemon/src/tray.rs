@@ -75,7 +75,11 @@ impl ksni::Tray for Tray {
 
     fn watcher_offline(&self, reason: ksni::OfflineReason) -> bool {
         tracing::warn!("StatusNotifierWatcher offline: {reason:?}");
-        let _ = self.tx.send(Control::WatcherOffline);
+        // `No` means the watcher's bus name went away, so it was there before.
+        // On GNOME this happens on every screen lock, because the shell
+        // disables user extensions (AppIndicator included) while locked.
+        let vanished = matches!(reason, ksni::OfflineReason::No);
+        let _ = self.tx.send(Control::WatcherOffline { vanished });
         true // keep running; the watcher may come back
     }
 
